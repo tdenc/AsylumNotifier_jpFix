@@ -148,7 +148,6 @@ function AsylumNotifier.PlayerActivated( eventCode, initial )
 end
 
 function AsylumNotifier.PlayerCombatState( eventCode, inCombat )
-	local name = ;
 	if (inCombat and string.find(string.lower(GetUnitName("boss1")), string.lower(AsylumNotifier.unitNameOlms))) then
 		AsylumNotifier.StartMonitoringOlms();
 	else

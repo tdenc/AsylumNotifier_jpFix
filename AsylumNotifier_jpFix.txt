@@ -7,8 +7,8 @@
 ## Title: Asylum Sanctorium Status Panel jpFix
 ## Description: Add Japanese names to catch the boss events correctly
 ## Author: @tdenc [NA]
-## Version: 1.2.0.1
-## APIVersion: 100027
+## Version: 1.2.0.2
+## APIVersion: 101035
 ## DependsOn: AsylumNotifier
 
 AsylumNotifier.lua

@@ -61,9 +61,10 @@ AsylumNotifier = {
 	teleportCooldown = 0,
 	lastStorm = 0,
 	maimEnd = 0,
-	unitNameOlms = "olms",
-	unitNameLlothis = "llothis",
-	unitNameFelms = "felms",
+	unitNameOlms = "Olms",
+	unitNameLlothis = "Llothis",
+	unitNameFelms = "Felms",
+	unitNameProtector = "Ordinated Protector"
 };
 
 function AsylumNotifier.OnAddOnLoaded( eventCode, addonName )
@@ -94,13 +95,15 @@ function AsylumNotifier.OnAddOnLoaded( eventCode, addonName )
 	-- Localization
 	local locale = GetCVar("language.2");
 	if locale == "en" then
-		AsylumNotifier.unitNameOlms = "olms";
-		AsylumNotifier.unitNameLlothis = "llothis";
-		AsylumNotifier.unitNameFelms = "felms";
+		AsylumNotifier.unitNameOlms = "Olms";
+		AsylumNotifier.unitNameLlothis = "Llothis";
+		AsylumNotifier.unitNameFelms = "Felms";
+		AsylumNotifier.unitNameProtector = "Ordinated Protector";
 	elseif locale == "jp" then
 		AsylumNotifier.unitNameOlms = "オルムス";
 		AsylumNotifier.unitNameLlothis = "ロシス";
 		AsylumNotifier.unitNameFelms = "フェルムス";
+		AsylumNotifier.unitNameProtector = "スフィア";
 	end
 
 	AsylumNotifier.fragment = ZO_HUDFadeSceneFragment:New(AsylumNotifierFrame);
@@ -146,7 +149,7 @@ end
 
 function AsylumNotifier.PlayerCombatState( eventCode, inCombat )
 	local name = ;
-	if (inCombat and string.find(string.lower(GetUnitName("boss1")), AsylumNotifier.unitNameOlms)) then
+	if (inCombat and string.find(string.lower(GetUnitName("boss1")), string.lower(AsylumNotifier.unitNameOlms))) then
 		AsylumNotifier.StartMonitoringOlms();
 	else
 		-- Avoid false positives of combat end, often caused by combat rezzes
@@ -310,7 +313,7 @@ function AsylumNotifier.Reset( )
 	AsylumNotifier.rows[1].timeMech[2]:SetColor(1, 0.4, 0.2, 1);
 	AsylumNotifier.rows[1].timeMech[3]:SetColor(0.5, 1, 0.5, 1);
 	AsylumNotifier.rows[3].label:SetText(GetAbilityName(AsylumNotifier.ids.storm_the_heavens));
-	AsylumNotifier.rows[4].label:SetText(GetString(SI_ASSP_LABEL_PROTECTOR));
+	AsylumNotifier.rows[4].label:SetText(AsylumNotifier.unitNameProtector);
 	AsylumNotifier.rows[5].label:SetText(GetAbilityName(AsylumNotifier.ids.maim));
 
 	AsylumNotifier.units = { };
@@ -521,10 +524,10 @@ function AsylumNotifier.InitializeUnit( unitId, unitName, rowId )
 end
 
 function AsylumNotifier.IdentifyUnit( unitId, unitName )
-	if (AsylumNotifier.unitIdLlothis == 0 and string.find(string.lower(unitName), AsylumNotifier.unitNameLlothis)) then
+	if (AsylumNotifier.unitIdLlothis == 0 and string.find(string.lower(unitName), string.lower(AsylumNotifier.unitNameLlothis))) then
 		AsylumNotifier.unitIdLlothis = unitId;
 		AsylumNotifier.InitializeUnit(unitId, LocalizeString("<<1>>", unitName), 1);
-	elseif (AsylumNotifier.unitIdFelms == 0 and string.find(string.lower(unitName), AsylumNotifier.unitNameFelms)) then
+	elseif (AsylumNotifier.unitIdFelms == 0 and string.find(string.lower(unitName), string.lower(AsylumNotifier.unitNameFelms))) then
 		AsylumNotifier.unitIdFelms = unitId;
 		AsylumNotifier.InitializeUnit(unitId, LocalizeString("<<1>>", unitName), 2);
 	end
